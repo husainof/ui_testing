@@ -1,38 +1,44 @@
 package pages;
 
 import core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.ConfigProvider;
 
 public class AddCustomerPage extends BasePage {
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[1]/input")
-    private WebElement fieldFirstName;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[2]/input")
-    private WebElement fieldLastName;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/div[3]/input")
-    private WebElement fieldPostCode;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/button")
+    @FindBy(xpath = "//input[contains(@ng-model, 'fName')]")
+    private WebElement firstNameField;
+    @FindBy(xpath = "//input[contains(@ng-model, 'lName')]")
+    private WebElement lastNameField;
+    @FindBy(xpath = "//input[contains(@ng-model, 'postCd')]")
+    private WebElement postCodeField;
+    @FindBy(xpath = "//button[text() = 'Add Customer' and contains(@type, 'submit')]")
     private WebElement btnAddCustomer;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[1]/button[3]")
+    @FindBy(xpath = "//button[contains(text(), 'Customers')]")
     private WebElement customersBtn;
     public AddCustomerPage() {
         PageFactory.initElements(driver, this);
     }
+    @Step("Открыть страницу AddCustomer")
     public AddCustomerPage openPage() {
         driver.get(ConfigProvider.readConfig().getString("urls.addCustomerPage"));
         return this;
     }
+    @Step("Заполнить поле first name")
     public void fillFirstName(String firstName) {
-        fieldFirstName.sendKeys(firstName);
+        firstNameField.sendKeys(firstName);
     }
+    @Step("Заполнить поле last name")
     public void fillLastName(String lastName) {
-        fieldLastName.sendKeys(lastName);
+        lastNameField.sendKeys(lastName);
     }
+    @Step("Заполнить поле  post code")
     public void fillPostCode(String postCode) {
-        fieldPostCode.sendKeys(postCode);
+        postCodeField.sendKeys(postCode);
     }
+    @Step("Кликнуть на кнопку создания клиента")
     public void clickAddCustomer() {
         btnAddCustomer.click();
     }
@@ -44,6 +50,7 @@ public class AddCustomerPage extends BasePage {
         driver.switchTo().alert().accept();
         return this;
     }
+    @Step("Переход на страницу Customers")
     public CustomersPage openCustomersPage() {
         customersBtn.click();
         return new CustomersPage();

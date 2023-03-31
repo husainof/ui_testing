@@ -1,6 +1,7 @@
 package pages;
 
 import core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersPage extends BasePage {
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/form/div/div/input")
+    @FindBy(xpath = "//input[contains(@ng-model, 'searchCustomer')]")
     private WebElement searchField;
-    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/table/thead/tr/td[1]/a")
+    @FindBy(xpath = "//a[contains(@ng-click, 'fName')]")
     private WebElement firstNameFilter;
     private WebElement firstName;
     private WebElement lastName;
@@ -21,11 +22,12 @@ public class CustomersPage extends BasePage {
     public CustomersPage() {
         PageFactory.initElements(driver, this);
     }
+    @Step("Ввод данные в строку поиска")
     public CustomersPage findCustomerByPostCode(String postCode) {
         searchField.sendKeys(postCode);
-        this.firstName = driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]"));
-        this.lastName = driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[2]"));
-        this.postCode = driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[3]"));
+        this.firstName = driver.findElement(By.xpath("//td[@class=\"ng-binding\"][1]"));
+        this.lastName = driver.findElement(By.xpath("//td[@class=\"ng-binding\"][2]"));
+        this.postCode = driver.findElement(By.xpath("//td[@class=\"ng-binding\"][3]"));
 
         return this;
     }
@@ -39,7 +41,7 @@ public class CustomersPage extends BasePage {
         return lastName.getText();
     }
     public List<String> getListOfFirstNames() {
-        List<WebElement> webElements = driver.findElements(By.xpath("/html/body/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]"));
+        List<WebElement> webElements = driver.findElements(By.xpath("//td[@class=\"ng-binding\"][1]"));
         List<String> firstNamesList = new ArrayList<String>();
         for (WebElement el: webElements
              ) {
@@ -48,6 +50,7 @@ public class CustomersPage extends BasePage {
         return firstNamesList;
 
     }
+    @Step("Кликнуть на кнопку сортировки")
     public CustomersPage clickToNameSortFilter() {
         firstNameFilter.click();
         return this;
@@ -57,6 +60,7 @@ public class CustomersPage extends BasePage {
         clickToNameSortFilter();
         return this;
     }
+    @Step("Открыть страницу Customers")
     public CustomersPage openPage() {
         driver.get(ConfigProvider.readConfig().getString("urls.customersPage"));
         return this;

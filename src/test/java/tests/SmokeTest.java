@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Epic("Smoke tests")
+@Epic("Smoke test")
 public class SmokeTest extends BaseTest {
     @Test
     @Description("Проверка создания клиента")
-    public void createCustomer() {
+    public void checkCreatingCustomer() {
         String testFirstName = ConfigProvider.readConfig().getString("testCustomer.firstName");
         String testLastName = ConfigProvider.readConfig().getString("testCustomer.lastName");
         String testPostCode = ConfigProvider.readConfig().getString("testCustomer.postCode");
@@ -35,7 +35,7 @@ public class SmokeTest extends BaseTest {
 
     @Test
     @Description("Проверка сортировки клиентов по имени")
-    public void sortByFirstName() {
+    public void checkSortingByFirstName() {
         List<String> firstNames =  new CustomersPage()
                 .openPage()
                 .setAscendingSort()
