@@ -7,7 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.ConfigProvider;
 
-public class AddCustomerPage extends BasePage {
+public class AddCustomerPage {
+    private WebDriver driver;
     @FindBy(xpath = "//input[contains(@ng-model, 'fName')]")
     private WebElement firstNameField;
     @FindBy(xpath = "//input[contains(@ng-model, 'lName')]")
@@ -18,8 +19,9 @@ public class AddCustomerPage extends BasePage {
     private WebElement btnAddCustomer;
     @FindBy(xpath = "//button[contains(text(), 'Customers')]")
     private WebElement customersBtn;
-    public AddCustomerPage() {
-        PageFactory.initElements(driver, this);
+    public AddCustomerPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(this.driver, this);
     }
     @Step("Открыть страницу AddCustomer")
     public AddCustomerPage openPage() {
@@ -53,7 +55,7 @@ public class AddCustomerPage extends BasePage {
     @Step("Переход на страницу Customers")
     public CustomersPage openCustomersPage() {
         customersBtn.click();
-        return new CustomersPage();
+        return new CustomersPage(this.driver);
     }
 
 }

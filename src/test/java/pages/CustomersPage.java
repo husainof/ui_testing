@@ -3,6 +3,7 @@ package pages;
 import core.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +12,8 @@ import utils.ConfigProvider;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomersPage extends BasePage {
+public class CustomersPage {
+    private WebDriver driver;
     @FindBy(xpath = "//input[contains(@ng-model, 'searchCustomer')]")
     private WebElement searchField;
     @FindBy(xpath = "//a[contains(@ng-click, 'fName')]")
@@ -19,7 +21,8 @@ public class CustomersPage extends BasePage {
     private WebElement firstName;
     private WebElement lastName;
     private WebElement postCode;
-    public CustomersPage() {
+    public CustomersPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
     @Step("Ввод данные в строку поиска")

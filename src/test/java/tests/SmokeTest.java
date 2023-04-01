@@ -1,5 +1,6 @@
 package tests;
 
+import core.BaseParallelTest;
 import core.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Epic("Smoke test")
-public class SmokeTest extends BaseTest {
+public class SmokeTest extends BaseParallelTest {
     @Test
     @Description("Проверка создания клиента")
     public void checkCreatingCustomer() {
@@ -22,7 +23,7 @@ public class SmokeTest extends BaseTest {
         String testLastName = ConfigProvider.readConfig().getString("testCustomer.lastName");
         String testPostCode = ConfigProvider.readConfig().getString("testCustomer.postCode");
 
-        CustomersPage customersPage =  new AddCustomerPage()
+        CustomersPage customersPage =  new AddCustomerPage(getDriver())
                 .openPage()
                 .addCustomer(testFirstName, testLastName, testPostCode)
                 .openCustomersPage()
@@ -36,7 +37,7 @@ public class SmokeTest extends BaseTest {
     @Test
     @Description("Проверка сортировки клиентов по имени")
     public void checkSortingByFirstName() {
-        List<String> firstNames =  new CustomersPage()
+        List<String> firstNames =  new CustomersPage(getDriver())
                 .openPage()
                 .setAscendingSort()
                 .getListOfFirstNames();
@@ -46,6 +47,6 @@ public class SmokeTest extends BaseTest {
         }
         Collections.sort(firstNamesSorted);
 
-        Assert.assertEquals(firstNames, firstNamesSorted);
+        Assert.assertEquals(firstNames, firstNamesSorted, "Список имён клиентов не соответствует не отсортирован");
     }
 }
