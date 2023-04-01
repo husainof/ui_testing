@@ -1,8 +1,6 @@
 package tests;
 
-import com.typesafe.config.ConfigFactory;
 import core.BaseParallelTest;
-import core.BaseTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import org.testng.Assert;
@@ -44,8 +42,8 @@ public class SmokeTest extends BaseParallelTest {
                 .setAscendingSort()
                 .getListOfFirstNames();
         List<String> firstNamesSorted =  new ArrayList<String>();
-        for(String el : firstNames) {
-            firstNamesSorted.add(el);
+        for(String firstName : firstNames) {
+            firstNamesSorted.add(firstName);
         }
         Collections.sort(firstNamesSorted);
 
