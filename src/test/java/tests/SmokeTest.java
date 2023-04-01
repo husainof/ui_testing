@@ -1,5 +1,6 @@
 package tests;
 
+import com.typesafe.config.ConfigFactory;
 import core.BaseParallelTest;
 import core.BaseTest;
 import io.qameta.allure.Description;
@@ -19,6 +20,7 @@ public class SmokeTest extends BaseParallelTest {
     @Test
     @Description("Проверка создания клиента")
     public void checkCreatingCustomer() {
+
         String testFirstName = ConfigProvider.readConfig().getString("testCustomer.firstName");
         String testLastName = ConfigProvider.readConfig().getString("testCustomer.lastName");
         String testPostCode = ConfigProvider.readConfig().getString("testCustomer.postCode");
