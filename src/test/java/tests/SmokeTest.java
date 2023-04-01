@@ -37,14 +37,18 @@ public class SmokeTest extends BaseParallelTest {
     @Test
     @Description("Проверка сортировки клиентов по имени")
     public void checkSortingByFirstName() {
+        
         List<String> firstNames =  new CustomersPage(getDriver())
                 .openPage()
                 .setAscendingSort()
                 .getListOfFirstNames();
+        
         List<String> firstNamesSorted =  new ArrayList<String>();
+        
         for(String firstName : firstNames) {
             firstNamesSorted.add(firstName);
         }
+        
         Collections.sort(firstNamesSorted);
 
         Assert.assertEquals(firstNames, firstNamesSorted, "Список имён клиентов не отсортирован");
