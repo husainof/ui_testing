@@ -23,7 +23,6 @@ public class BaseParallelTest {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         drivers.set(driver);
-        BasePage.setDriver(driver);
     }
     public WebDriver getDriver() {
         return drivers.get();
