@@ -47,6 +47,6 @@ public class SmokeTest extends BaseParallelTest {
         }
         Collections.sort(firstNamesSorted);
 
-        Assert.assertEquals(firstNames, firstNamesSorted, "Список имён клиентов не соответствует не отсортирован");
+        Assert.assertEquals(firstNames, firstNamesSorted, "Список имён клиентов не отсортирован");
     }
 }
