@@ -62,7 +62,6 @@ public class CustomersPage {
             firstNamesList.add(firstNamesElement.getText());
         }
         return firstNamesList;
-
     }
 
     @Step("Кликнуть на кнопку сортировки")
