@@ -3,6 +3,7 @@ package tests;
 import core.BaseParallelTest;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
+import org.apache.tika.metadata.Message;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.AddCustomerPage;
@@ -22,13 +23,20 @@ public class SmokeTest extends BaseParallelTest {
         String testFirstName = ConfigProvider.readConfig().getString("testCustomer.firstName");
         String testLastName = ConfigProvider.readConfig().getString("testCustomer.lastName");
         String testPostCode = ConfigProvider.readConfig().getString("testCustomer.postCode");
+        String testAlertMessage = ConfigProvider.readConfig().getString("testAlertMessage");
 
-        CustomersPage customersPage =  new AddCustomerPage(getDriver())
+        AddCustomerPage addCustomerPage = new AddCustomerPage(getDriver());
+
+        String alertMessage =  addCustomerPage
                 .openPage()
                 .addCustomer(testFirstName, testLastName, testPostCode)
+                .getAlertMessage();
+
+        CustomersPage customersPage =  addCustomerPage
                 .openCustomersPage()
                 .findCustomerByPostCode(testPostCode);
 
+        Assert.assertTrue (alertMessage.contains(testAlertMessage));
         Assert.assertEquals(customersPage.getFirstName(), testFirstName);
         Assert.assertEquals(customersPage.getLastName(), testLastName);
         Assert.assertEquals(customersPage.getPostCode(), testPostCode);

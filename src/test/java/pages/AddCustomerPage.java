@@ -10,6 +10,8 @@ public class AddCustomerPage {
 
     private WebDriver driver;
 
+    private String alertMessage;
+
     @FindBy(xpath = "//input[contains(@ng-model, 'fName')]")
     private WebElement firstNameField;
 
@@ -61,7 +63,9 @@ public class AddCustomerPage {
         fillLastName(lastName);
         fillPostCode(postCode);
         clickAddCustomer();
-        driver.switchTo().alert().accept();
+        var alert =  driver.switchTo().alert();
+        alertMessage = alert.getText();
+        alert.accept();
         return this;
     }
 
@@ -69,5 +73,9 @@ public class AddCustomerPage {
     public CustomersPage openCustomersPage() {
         customersBtn.click();
         return new CustomersPage(this.driver);
+    }
+
+    public String getAlertMessage() {
+        return alertMessage;
     }
 }
