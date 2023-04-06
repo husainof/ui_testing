@@ -37,7 +37,7 @@ public class CustomersPage {
         PageFactory.initElements(driver, this);
     }
 
-    @Step("Ввод данныx в строку поиска")
+    @Step("Ввод post code в инпут для поиска пользователя")
     public CustomersPage findCustomerByPostCode(String postCode) {
         searchField.sendKeys(postCode);
         return this;
