@@ -27,16 +27,13 @@ public class SmokeTest extends BaseParallelTest {
 
         AddCustomerPage addCustomerPage = new AddCustomerPage(getDriver());
 
-        String alertMessage =  addCustomerPage
+        CustomersPage customersPage =  addCustomerPage
                 .openPage()
                 .addCustomer(testFirstName, testLastName, testPostCode)
-                .getAlertMessage();
-
-        CustomersPage customersPage =  addCustomerPage
                 .openCustomersPage()
                 .findCustomerByPostCode(testPostCode);
 
-        Assert.assertTrue (alertMessage.contains(testAlertMessage));
+        Assert.assertTrue (addCustomerPage.getAlertMessage().contains(testAlertMessage));
         Assert.assertEquals(customersPage.getFirstName(), testFirstName);
         Assert.assertEquals(customersPage.getLastName(), testLastName);
         Assert.assertEquals(customersPage.getPostCode(), testPostCode);
